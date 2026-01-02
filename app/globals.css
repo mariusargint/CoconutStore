@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    --font-serif: 'Playfair Display', Georgia, serif;
+
+    /* Brand colors */
+    --color-coconut-white: #F5F5F5;
+    --color-coconut-black: #000000;
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-coconut-white);
+    color: var(--color-coconut-black);
+    font-family: var(--font-inter);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  /* Improve mobile touch scrolling */
+  @media (max-width: 768px) {
+    body {
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-black text-white px-8 py-4 text-sm uppercase tracking-wider font-medium hover:bg-gray-900 transition-colors duration-300;
+  }
+
+  .btn-secondary {
+    @apply border-2 border-black text-black px-8 py-4 text-sm uppercase tracking-wider font-medium hover:bg-black hover:text-white transition-colors duration-300;
+  }
+
+  .section-padding {
+    @apply px-4 md:px-8 lg:px-12 xl:px-16;
+  }
+
+  .container-max {
+    @apply max-w-[1600px] mx-auto;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
