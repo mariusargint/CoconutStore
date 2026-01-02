@@ -9,7 +9,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { useRouter } from 'next/navigation';
 
 export default function CheckoutPage() {
-  const { cart, total } = useCart();
+  const { cart, cartTotal } = useCart();
   const { t } = useLanguage();
   const router = useRouter();
   const [clientSecret, setClientSecret] = useState<string>('');
@@ -32,11 +32,11 @@ export default function CheckoutPage() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            amount: total,
+            amount: cartTotal,
             currency: 'eur',
             metadata: {
               orderItems: cart.length,
-              cartTotal: total.toFixed(2),
+              cartTotal: cartTotal.toFixed(2),
             },
           }),
         });
@@ -56,7 +56,7 @@ export default function CheckoutPage() {
     };
 
     createPaymentIntent();
-  }, [cart, total, router]);
+  }, [cart, cartTotal, router]);
 
   const stripePromise = getStripe();
 
@@ -140,16 +140,16 @@ export default function CheckoutPage() {
             <div className="border-t-2 border-black pt-4">
               <div className="flex justify-between text-xl font-light mb-2">
                 <span>Subtotal</span>
-                <span>€{total.toFixed(2)}</span>
+                <span>€{cartTotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-sm text-gray-600 mb-2">
                 <span>Shipping</span>
-                <span>{total >= 100 ? 'FREE' : '€4.99'}</span>
+                <span>{cartTotal >= 100 ? 'FREE' : '€4.99'}</span>
               </div>
               <div className="flex justify-between text-2xl font-light mt-4">
                 <span>Total</span>
                 <span>
-                  €{(total >= 100 ? total : total + 4.99).toFixed(2)}
+                  €{(cartTotal >= 100 ? cartTotal : cartTotal + 4.99).toFixed(2)}
                 </span>
               </div>
             </div>
